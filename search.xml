@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>剑指offer - 二维数组中的查找</title>
+    <url>/2017/12/17/27/</url>
+    <content><![CDATA[<blockquote>
+<p>一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+</blockquote>
+<p>解题思路：</p>
+<blockquote>
+<p>从右上，往左下查找 </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> target, <span class="keyword">int</span> [][] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> row = array.length;</span><br><span class="line">        <span class="keyword">int</span> col = array[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = col-<span class="number">1</span>;i &gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j&lt;row;j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> v = array[j][i];</span><br><span class="line">                <span class="keyword">if</span>(target == v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(target &lt; v)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>JAVA</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Plugin is too old, please update to a more recent version, or set ANDROID_DAILY_OVERRIDE</title>
+    <url>/2017/06/05/26/</url>
+    <content><![CDATA[<blockquote>
+<p>看到这个问题，说明你是个勇士（其实就是敢死队）<br>能找到本文，你就是勇士中的勇士</p>
+</blockquote>
+<p>Plugin is too old, please update to a more recent version, or set ANDROID_DAILY_OVERRIDE</p>
+<p>这个问题出现原因，AS 的beta/alpha版本，有40天的限制，40天后，会强制让你更新到正式版（或最新版）。</p>
+<p>谷歌大大最近在搞3.0 ，没空整2.4 ，啃爹的3.0 又各种内存泄露。</p>
+<p>解决办法：</p>
+<blockquote>
+<ol>
+<li>设置环境变量 ANDROID_DAILY_OVERRIDE = xxxx<br>mac 环境变量方法 launchctl setenv ANDROID_DAILY_OVERRIDE xxxx<br>windows / linux 自己看着设置吧</li>
+<li>使用最新版本</li>
+</ol>
+</blockquote>
+<p>网上还有让把gradle插件设置到最新版本的，别折腾了，不好使。</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Plugin</tag>
+        <tag>AS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TensorFlow - 用 pyenv 管理你的python</title>
+    <url>/2017/06/04/25/</url>
+    <content><![CDATA[<blockquote>
+<p>本文环境：<br>系统 macOS Sierra<br>软件包管理 homebrew</p>
+</blockquote>
+<h2 id="关于-pyenv"><a href="#关于-pyenv" class="headerlink" title="关于 pyenv"></a>关于 pyenv</h2><p>一般在操作系统中我们会安装多个Python版本，在Linux系统中一般默认就自带了Python2与Python3两个版本，所以在进行Python版本切换时会比较麻烦，<strong>pyenv</strong>就提供了一种简单的方式。</p>
+<p>pyenv是一个能简易地在多个Python版本中进行切换的工具，它简单而优雅。</p>
+<h3 id="pyenv有以下功能："><a href="#pyenv有以下功能：" class="headerlink" title="pyenv有以下功能："></a>pyenv有以下功能：</h3><ul>
+<li>进行全局的Python版本切换</li>
+<li>为单个项目提供对应的Python版本</li>
+<li>使用环境变量能让你重写Python版本</li>
+<li>能在同一时间在不同版本间进行命令搜索</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>安装</strong><code>brew install pyenv</code><br><strong>环境变量</strong> <code>echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.bash_profile</code>  </p>
+<p><strong>可能出现错误:</strong></p>
+<blockquote>
+<p>zipimport.ZipImportError: can’t decompress data; zlib not available<br>键入<code>brew install zlib</code>? 可惜的是提示zlib找不到<br>解决办法<a href="https://stackoverflow.com/a/26912010" target="_blank" rel="noopener"><code>xcode-select --install</code></a></p>
+</blockquote>
+<h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><ol>
+<li><strong>可安装列表</strong>  <code>pyenv install --list</code></li>
+<li><strong>安装python</strong> <code>pyenv install xxx</code></li>
+<li><strong>已安装列表</strong> <code>pyenv versions</code></li>
+<li><strong>版本切换(针对文件夹)</strong> <code>pyenv local &lt;version&gt;</code></li>
+<li><strong>版本切换(全局)</strong> <code>pyenv global &lt;version&gt;</code></li>
+<li><strong>其他</strong> 键入<code>pyenv</code>自行查看</li>
+</ol>
+<h2 id="加速python"><a href="#加速python" class="headerlink" title="加速python"></a>加速python</h2><p>安装Python的时候，由于种种原因，速度很慢，想死的心都有。</p>
+<ol>
+<li>pyenv搜狐镜像源加速：<a href="http://mirrors.sohu.com/python/" target="_blank" rel="noopener">http://mirrors.sohu.com/python/</a></li>
+<li>下载需要的版本放到 ~/.pyenv/cache文件夹下面</li>
+<li>然后执行 pyenv install 版本号 安装对应的python版本</li>
+</ol>
+<p>一键安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">v="2.7.12"; </span><br><span class="line">wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/; </span><br><span class="line">pyenv install $v</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>TensorFlow</category>
+      </categories>
+      <tags>
+        <tag>pyenv</tag>
+        <tag>Python</tag>
+        <tag>TensorFlow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派 FAT32格式的U盘更改属性或者组提示没有权限</title>
+    <url>/2017/01/20/24/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>树莓派SD卡内存有限，打算把mysql的data 目录迁移到U盘上来。将U盘（fat32格式）挂载到/data目录下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo mkdir /data  </span><br><span class="line">sudo mount /dev/sda1 /data </span><br><span class="line">sudo mkdir /data/db</span><br><span class="line"><span class="meta">#</span><span class="bash">mysql的data目录要求用户/用户组必须是mysql</span></span><br><span class="line">sudo chown mysql:mysql /data/db</span><br></pre></td></tr></table></figure>
+<p>执行到这，问题来了  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chown: changing ownership of `/data/db&apos;: Operation not permitted</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>有点懵，为啥说我没权限操作，<code>sudo</code>了啊，百度（这是一个错误的决定），谷歌（然并卵），找了几个试了下都不行，比如：当前不是root用户，su 到root 用户下chown，一个鬼样。  </p>
+<blockquote>
+<p>注意，chown 或者 chmod 都一样，即使执行成功，但是也是没效果的</p>
+</blockquote>
+<h2 id="四处碰壁"><a href="#四处碰壁" class="headerlink" title="四处碰壁"></a>四处碰壁</h2><p><code>df -h</code> 了下，惊讶的发现/data的用户，用户组是pi，顺着这个思路又去谷歌了，这回，终于找回点有用的命令来，虽然结果没用，至少学到了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#把U盘挂载以root 用户root 用户组挂载到data 下</span><br><span class="line">sudo mount -o uid=root,gid=root /dev/sda1 /data</span><br></pre></td></tr></table></figure>
+<p>恩，不出意外的没生效。继续谷歌。</p>
+<blockquote>
+<p>Add the following to /etc/fstab:  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/dev/sda1 /data vfat rw,umask=000 0 0</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>稍微解释下，<code>vfat</code> U盘的fat32格式，<code>rw</code> 读写权限,<code>umask</code> 用户以及用户组。</p>
+<p>重新挂载，然后<code>df -h</code>。泪牛满面，😭，神奇的用户组终于变成root了。激动的我赶紧<code>chown</code>，更改db目录用户组。 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chown: changing ownership of `/data/db&apos;: Operation not permitted</span><br></pre></td></tr></table></figure>
+<p>。。。</p>
+<p>还是不好使，咋破？<code>umask</code> 换成mysql的用户组？感觉怪怪的，没这么尝试。😭</p>
+<p>寻寻觅觅，看到有人提到nfts 或者fat32 读写有问题，当然，跟我这搭不上边。我这是权限问题。😄 ，但突然想到一点。</p>
+<p>/etc/fstab:   </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">proc            /proc           proc    defaults          0       0</span><br><span class="line">/dev/mmcblk0p6  /boot           vfat    defaults          0       2</span><br><span class="line">/dev/mmcblk0p7  /               ext4    defaults,noatime  0       1</span><br></pre></td></tr></table></figure>
+<p>boot 目录也是vfat 的，我尝试在boot 下<code>chown</code>，果然也是不好使的，在其他目录下完全没问题。😄 没有对比就没有伤害。找到问题所在。下面就简单了，把U盘格式化成ext4格式就好了。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>格式方法:</p>
+<blockquote>
+<p>sudo umount /data #卸载U盘<br>mkfs -t ext4 /dev/sda1</p>
+</blockquote>
+<p>在挂载上，<code>chown</code> ，好使了。😄</p>
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>权限</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小米路由MINI刷Pandorabox教程</title>
+    <url>/2016/11/06/23/</url>
+    <content><![CDATA[<blockquote>
+<p>因为是刷机后的教程，所以就不给图了，所有的步骤比较清晰，而且都是我确保所有没问题的方法<br>SN 会丢失么？ 实测3~4遍，反正我到现在没丢失过，刷回官方的，SN就有<br>小米路由MINI（下称mini）买来刚开始用着挺爽的，日久天长，发现了对方的毛病，经常抽风（打开网页失败）。憋不住了，刷第三方的固件 – Pandorabox（潘多拉）。<br>选择Pandorabox 因为可定制性高些，有opkg，可以做些一般人不能做的事情😄。<br>写这篇文章的目的，记录下自己遇到的坑，对其他的文章做一补充。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="Step1-小米路由MINI开发版-开启SSH"><a href="#Step1-小米路由MINI开发版-开启SSH" class="headerlink" title="Step1 小米路由MINI开发版/开启SSH"></a>Step1 小米路由MINI开发版/开启SSH</h2><p>首先确保路由器固件当前版本是<code>开发版</code>，因为只有<code>开发版</code>才能开启<a href="http://baike.baidu.com/link?url=UHhLhN1mYFrUf665Rd20VK_XlGeiqFWmdsJ097TRgtIanMXlNYWtm5cMZOsPElDLgeun5zqTG5UrJRhmG13Hm_" target="_blank" rel="noopener">SSH</a> 进行后续操作。  具体教程网上很多，不一一介绍，没坑，<a href="http://bbs.xiaomi.cn/t-11720354" target="_blank" rel="noopener">官网教程</a>  </p>
+<p><strong>请删除刚刚的miwifi.bin文件！</strong>为啥呢，因为你会发现下面这个教程也很类似，不知道会不会有冲突，所以还是删了好  </p>
+<p>接着就是开启SSH了，仍然是<a href="https://d.miwifi.com/rom/ssh?userId=251585770" target="_blank" rel="noopener">官网教程</a>(需要绑定路由器的小米账号)，记得记下ROOT密码（不会变的，后面再来看也行）。</p>
+<blockquote>
+<p>其实，这两步可以一步完成，步骤就是分别把两文件一起放到U盘里面，刷机就行，但这个是我意外发现，不敢乱指挥啊，有胆量的哥们可以试试。</p>
+</blockquote>
+<h2 id="Step2-选择下载Pandorabox固件"><a href="#Step2-选择下载Pandorabox固件" class="headerlink" title="Step2 选择下载Pandorabox固件"></a>Step2 选择下载Pandorabox固件</h2><p>我不是坑，我给<a href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/" target="_blank" rel="noopener">官方下载<strong>详细的</strong>地址</a>，为啥说是详细的呢，有些教程坑，扔出一个官网地址，让你自己选择去，鬼晓得选择啥平台。<br>版本选择：old_fw（旧的版本），stable（稳定版），testing（测试），u-boot（不知道😂）。<br>选的当然是stable最新版了，<a href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/stable/PandoraBox-ralink-mt7620-xiaomi-mini-squashfs-sysupgrade-r1024-20150608.bin" target="_blank" rel="noopener">传送门</a></p>
+<h2 id="Step3-安装Pandorabox固件"><a href="#Step3-安装Pandorabox固件" class="headerlink" title="Step3 安装Pandorabox固件"></a>Step3 安装Pandorabox固件</h2><p>这里，固件安装方法最多，我只给出我使用的方法（防止其他的方法有坑，锅我不背）。<br><strong>下面这步教程只接受Windows系统，mac，Linux，请绕道使用SSH安装</strong><br>下载个newifi 工具，<a href="http://www.newifi.com/router.shtml" target="_blank" rel="noopener">传送门</a>，路由助手下载。（newifi是什么鬼❓想知道就百度吧，第三方做路由的）  </p>
+<p>下载安装完成打开软件后，“实用工具” =&gt; “小米mini刷机工具” ，然后按照说明一步步来即可。<strong>第3步让你下载newifi固件，你别那么实诚，真去下载了！</strong>只需把刚刚下载的Pandorabox固件重命名为newifi.bin 拷入进去就行。记得把miwifi_ssh.bin文件删除掉!</p>
+<h2 id="Step4-成功了，可以耍了。"><a href="#Step4-成功了，可以耍了。" class="headerlink" title="Step4 成功了，可以耍了。"></a>Step4 成功了，可以耍了。</h2><p>连接WiFi - Pandorabox_xxx =&gt; 浏览器输入192.168.1.1 账户/密码 root/admin<br>尽情的耍吧。</p>
+<hr>
+<p>后面会继续讲如何跟openwrt 一起愉快的玩耍，比如路由器当成小服务器😂（屌丝气质）</p>
+]]></content>
+      <categories>
+        <category>openwrt</category>
+      </categories>
+      <tags>
+        <tag>小米路由</tag>
+        <tag>Pandorabox</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android Android_ADB_通过WIFI或USB方式完成调试</title>
+    <url>/2016/07/25/22/</url>
+    <content><![CDATA[<blockquote>
+<p>整理下，adb wifi 连接手机。需要数据线，但是不需要root，勿喷。至少有场景会需要这种情况，比如：开发数据线没带，接同事数据线用下 / 电脑充电速度过慢，要用电源线充</p>
+</blockquote>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>默认情况下adb是通过USB连接的，但是adb也支持通过wifi连接，前提是使用adb命令的电脑终端与待调试的手机在同一网段下。这样，在没有usb或者远程下都可以完成调试手机。（可能部分手机的调试模式改为wifi后，手机连接usb就会无效，包括充电。没证实过，至少米5 不是。可以将手机在wifi下切回USB即可。）</p>
+<a id="more"></a>
+
+<h2 id="2-连接USB线转为WIFI（前提adb通过usb连接）"><a href="#2-连接USB线转为WIFI（前提adb通过usb连接）" class="headerlink" title="2.连接USB线转为WIFI（前提adb通过usb连接）"></a>2.连接USB线转为WIFI（前提adb通过usb连接）</h2><p><code>adb tcpip 5555</code> usb 转换成 wifi<br><code>adb connect xxx</code> 连接手机，如：adb connect 192.168.43.144）<br><code>adb disconnect</code> 断开连接  </p>
+<h2 id="3-WIFI转为USB"><a href="#3-WIFI转为USB" class="headerlink" title="3.WIFI转为USB"></a>3.WIFI转为USB</h2><p>执行以下<code>adb usb</code></p>
+<h2 id="4-adb无连接到WIFI"><a href="#4-adb无连接到WIFI" class="headerlink" title="4.adb无连接到WIFI"></a>4.adb无连接到WIFI</h2><p>在移动端执行shell，需要取得超级管理员权限执行su</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setprop service.adb.tcp.port 5555  </span><br><span class="line">stop adbd  </span><br><span class="line">start adbd  </span><br><span class="line">~~~  </span><br><span class="line"></span><br><span class="line">连接</span><br><span class="line">`adb connect android设备IP地址`（如：adb connect 192.168.43.144） </span><br><span class="line"> </span><br><span class="line">## 5.adb无连接到USB</span><br><span class="line">需要取得超级管理员权限执行su，再执行</span><br></pre></td></tr></table></figure>
+<p>setprop service.adb.tcp.port -1<br>stop adbd<br>start adbd  </p>
+<pre><code></code></pre>]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git - stash 使用</title>
+    <url>/2016/05/30/21/</url>
+    <content><![CDATA[<blockquote>
+<p><code>stash</code>字面意思<code>贮藏</code>，既贮藏当前代码。使用场景，写了一半的代码：前面提交的代码有问题 或者 其他分支的代码有问题！想找个地方存储当前没提交的代码。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+<p>将当前的工作区内容保存到Git栈中，恢复到最近的一次提交。<br>可以多次stash。</p>
+<h2 id="取出"><a href="#取出" class="headerlink" title="取出"></a>取出</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<p>从Git栈中pop出最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p>
+<h2 id="列出全部"><a href="#列出全部" class="headerlink" title="列出全部"></a>列出全部</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+<p>显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p>
+<h2 id="清空全部"><a href="#清空全部" class="headerlink" title="清空全部"></a>清空全部</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git stash clear</span><br></pre></td></tr></table></figure>
+<p>清空Git栈。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>stash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Change Log</title>
+    <url>/2016/05/18/hello-world/</url>
+    <content><![CDATA[<p>这篇帖子，只用于记录网站的变更</p>
+<h2 id="网站出生-2016-05-18"><a href="#网站出生-2016-05-18" class="headerlink" title="网站出生  2016-05-18"></a>网站出生  2016-05-18</h2><p>1007.us 域名一直握在手上，老早就想写个网站啥的，太懒，一直就没成功过。偶然接触hexo的时候，就想为班级写点什么。今晚，终于行动了！😄 <a href="http://mail.1007.us" target="_blank" rel="noopener">企业邮箱</a>申请、<a href="https://github.com/1007class" target="_blank" rel="noopener">github</a>注册、域名绑定等等，终于把1007.us运行了起来</p>
+<a id="more"></a>
+
+<h2 id="主题更改-2016-05-18"><a href="#主题更改-2016-05-18" class="headerlink" title="主题更改  2016-05-18"></a>主题更改  2016-05-18</h2><p>使用的是<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT.Pisces</a>主题，考虑到文章应该会多人发，于是post 加了一个author字段。</p>
+<p>1、 修改 next/layout/_macro/post.swig</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if post.author %&#125;</span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-autor"</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-text"</span>&gt;</span>&#123;&#123; __('post.author') &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">"author"</span>&gt;</span>&#123;&#123; post.author &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、 在languages下的所以有文件里，在post字段下 增加author字段</p>
+<pre><code>author: Author</code></pre><p>3、 发文章的时候，在头部声明author即可</p>
+]]></content>
+      <categories>
+        <category>瞎扯</category>
+      </categories>
+      <tags>
+        <tag>网站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Centos install Jekyll</title>
+    <url>/2016/05/09/19/</url>
+    <content><![CDATA[<p>前面在mac 上装完jekyll，感觉蛮顺畅的，准备在Centos 6.5搞起，貌似没那么顺了，下面是“搞”的过程。</p>
+<h2 id="安装-这里针对Centos"><a href="#安装-这里针对Centos" class="headerlink" title="安装 (这里针对Centos)"></a>安装 (这里针对Centos)</h2><h2 id="事先准备"><a href="#事先准备" class="headerlink" title="事先准备"></a>事先准备</h2><p>安装 Jekyll 相当简单，但是你得先做好一些准备工作。开始前你需要确保你在系统里已经有如下配置。</p>
+<ul>
+<li><a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">Ruby</a>（including development headers, Jekyll 3 需要 v2 及以上版本）</li>
+<li><a href="http://rubygems.org/pages/download" target="_blank" rel="noopener">RubyGems</a></li>
+<li>Linux, Unix, or Mac OS X</li>
+</ul>
+<h2 id="Ruby安装"><a href="#Ruby安装" class="headerlink" title="Ruby安装"></a>Ruby安装</h2><p>有些机器可能自带ruby，建议仍然按照下面教程安装ruby，用rvm安装最新版本ruby</p>
+<ol>
+<li><p>yum安装，版本旧</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install ruby ruby-devel ruby-ri ruby-rdoc ruby-irb ruby-shadow</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum remove ruby ruby-devel -y</span><br></pre></td></tr></table></figure></li>
+<li><p>下载源码安装</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz</span><br><span class="line">tar zxvf ruby-2.3.1.tar.gz </span><br><span class="line">cd ruby-2.3.1</span><br><span class="line">./configure --prefix=/usr/local/ruby --with-opessl-dir=/root/soft/openssl-1.0.0l</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">echo "export PATH=/usr/local/ruby/bin:$PATH &gt;&gt; ~/.bash_profile"</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>RubyGems安装</p>
+</li>
+</ol>
+<hr>
+<p>官网有教程，不一一列举，我是：</p>
+<ol>
+<li>download个zip</li>
+<li>解压并<strong>cd</strong>到该目录下</li>
+<li><strong>sudo ruby setup.rb</strong></li>
+<li>删除解压文件</li>
+</ol>
+<h2 id="RubyGems镜像-–-淘宝"><a href="#RubyGems镜像-–-淘宝" class="headerlink" title="RubyGems镜像 – 淘宝"></a>RubyGems镜像 – 淘宝</h2><p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。<a href="https://ruby.taobao.org" target="_blank" rel="noopener">传送门</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/</span><br></pre></td></tr></table></figure>
+<h2 id="jekyll安装"><a href="#jekyll安装" class="headerlink" title="jekyll安装"></a>jekyll安装</h2><p>终端 ==&gt; <strong>sudo gem install jekyll</strong> ，注意sudo! 注意sudo!注意sudo!</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>fork 了别人的项目，jekyll run的时候会报错，提示安装<a href="http://pygments.org/" target="_blank" rel="noopener">Pygments</a>，rdiscount<br>当时很纳闷，咋装呢，用啥子装么。。。</p>
+<pre><code class="shell">gem install pygments.rb
+gem install rdiscount</code></pre>
+]]></content>
+      <categories>
+        <category>blog</category>
+        <category>jekyll</category>
+      </categories>
+      <tags>
+        <tag>Centos</tag>
+        <tag>jekyll</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jekyll小试🐂刀</title>
+    <url>/2016/05/06/18/</url>
+    <content><![CDATA[<!--2016-05-06-Jekyll小试🐂刀-->
+<blockquote>
+<p>之前用emlog，php的，很小也容易定制，但发现代码高亮，以及代码格式，已经到了我不能容忍的地步，🐟是乎像找个替代品，偶然发现jekyll ，哈哈😂，只想说，现在已经是凌晨 02:22 分，还是如此的兴奋(≧▽≦)/ 。稍微做下对jekyll 安装的记录，以供以后使用。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Jekyll-究竟是什么？"><a href="#Jekyll-究竟是什么？" class="headerlink" title="Jekyll 究竟是什么？"></a>Jekyll 究竟是什么？</h2><p>以下内容直接摘自原文，<a href="http://jekyllcn.com/docs/home/" target="_blank" rel="noopener">传送门</a></p>
+<p><strong>Jekyll</strong> 是一个简单的博客形态的静态站点生产机器。它有一个模版目录，其中包含原始文本格式的文档，通过一个转换器（如 <a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>）和我们的 <a href="https://github.com/Shopify/liquid/wiki" target="_blank" rel="noopener">Liquid</a> 渲染器转化成一个完整的可发布的静态网站，你可以发布在任何你喜爱的服务器上。Jekyll 也可以运行在 <a href="http://pages.github.com/" target="_blank" rel="noopener">GitHub Page</a> 上，也就是说，你可以使用 GitHub 的服务来搭建你的项目页面、博客或者网站，而且是完全免费的。</p>
+<h2 id="安装-这里只针对mac"><a href="#安装-这里只针对mac" class="headerlink" title="安装 (这里只针对mac)"></a>安装 (这里只针对mac)</h2><h3 id="事先准备"><a href="#事先准备" class="headerlink" title="事先准备"></a>事先准备</h3><p>安装 Jekyll 相当简单，但是你得先做好一些准备工作。开始前你需要确保你在系统里已经有如下配置。</p>
+<ul>
+<li><a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">Ruby</a>（including development headers, Jekyll 3 需要 v2 及以上版本）</li>
+<li><a href="http://rubygems.org/pages/download" target="_blank" rel="noopener">RubyGems</a></li>
+<li>Linux, Unix, or Mac OS X</li>
+</ul>
+<h3 id="Ruby安装"><a href="#Ruby安装" class="headerlink" title="Ruby安装"></a>Ruby安装</h3><p>mac 装了homebrew的，直接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew install ruby</span><br></pre></td></tr></table></figure>
+
+<p>别给我扯mac自带ruby，反正我没看啥版本，我也知道mac自带ruby，就没当回事，直接进入第二步，安装RubyGems，就埋下大坑。</p>
+<h3 id="RubyGems安装"><a href="#RubyGems安装" class="headerlink" title="RubyGems安装"></a>RubyGems安装</h3><p>官网有教程，不一一列举，我是：</p>
+<ol>
+<li>download个zip</li>
+<li>解压并<strong>cd</strong>到该目录下</li>
+<li><strong>sudo ruby setup.rb</strong></li>
+<li>删除解压文件</li>
+</ol>
+<blockquote>
+<p><strong>注意：</strong>就是这里，我发现<strong>ruby setup.rb</strong> 安装不上，报错<strong>Operation not permitted</strong>，有点懵。百度了下，要我重启按住 Command+R，进入恢复模式，吓得有点傻眼，别装个小东西，搞出这么大动静啊。随手找我谷哥，还是我哥靠谱，提示俺brew 安装下Ruby就好。</p>
+</blockquote>
+<h3 id="jekyll安装（激动人心啊）"><a href="#jekyll安装（激动人心啊）" class="headerlink" title="jekyll安装（激动人心啊）"></a>jekyll安装（激动人心啊）</h3><p>终端 ==&gt; <strong>sudo gem install jekyll</strong> ，注意sudo! 注意sudo!注意sudo!</p>
+<p>sudo注意了，还是没装上，妈蛋白激动了。报了个connect 失败，连接不上，被强了。翻墙？vpn速度太慢了，也不上长久之计啊。突然想到RubyGems说白了也就是包资源管理呗。他有张良计，我就有过墙梯。百度，RubyGems换源！</p>
+<h3 id="RubyGems镜像-–-淘宝"><a href="#RubyGems镜像-–-淘宝" class="headerlink" title="RubyGems镜像 – 淘宝"></a>RubyGems镜像 – 淘宝</h3><p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。<a href="https://ruby.taobao.org" target="_blank" rel="noopener">传送门</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/</span><br></pre></td></tr></table></figure>
+
+<p>再来，一次jekyll 安装，欧拉！</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>fork 了别人的项目，jekyll run的时候会报错，提示安装<a href="http://pygments.org/" target="_blank" rel="noopener">Pygments</a>，rdiscount<br>当时很纳闷，咋装呢，用啥子装么。。。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gem install pygments.rb</span><br><span class="line">gem install rdiscount</span><br></pre></td></tr></table></figure>
+
+<p>别骂我为啥没给一个非常正确的安装顺序，还让趟趟坑，趟坑才能记住些东西，我留下这篇日志也是为了未来少趟坑，睡啦。=_=</p>
+]]></content>
+      <categories>
+        <category>blog</category>
+        <category>jekyll</category>
+      </categories>
+      <tags>
+        <tag>jekyll</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RecyclerView match_parent无效</title>
+    <url>/2016/04/05/17/</url>
+    <content><![CDATA[<p>使用RecyclerView 时，在xml文件中设置宽度<code>match_parent</code>无效，</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>&#123; </span><br><span class="line">    <span class="comment">//View view = View.inflate(parent.getContext(),R.layout.item_fra_main2, null); </span></span><br><span class="line">    View view = mInflater.from(mContext).inflate(R.layout.item_fra_main2, parent, <span class="keyword">false</span>); </span><br><span class="line">    ViewHolder holder = <span class="keyword">new</span> ViewHolder(view); </span><br><span class="line">    <span class="keyword">return</span> holder; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注释掉的填充方式会导致match_parent无效</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>RecyclerView</tag>
+        <tag>match_parent</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android - libpng warning: iCCP</title>
+    <url>/2016/03/23/16/</url>
+    <content><![CDATA[<p>Android 编译运行项目的时候 启动报错</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">libpng warning: iCCP: Not recognizing known sRGB profile that has been edited</span><br></pre></td></tr></table></figure>
+
+<p>原因 : 新版本的libpng对关于ICCP采用了更严苛的约束<br>解决办法： 使用imageMagick 的 <code>convert  infile -strip outfile</code><br>imageMagick <a href="http://www.imagemagick.org/script/binary-releases.php" target="_blank" rel="noopener">官网</a></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>libpng</tag>
+        <tag>imageMagick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ClassyShark 安卓可执行文件浏览器</title>
+    <url>/2016/03/16/15/</url>
+    <content><![CDATA[<!--2016-03-16-ClassyShark 安卓可执行文件浏览器-->
+
+<p>非谷歌官方产品。</p>
+<p>ClassyShark安卓可执行文件浏览器，它可以浏览安卓下可执行的程序。包含安卓APK和桌面版JAR的客户端。支<code>Dex/Jar/APK/Class/AAR</code>文件，并分析里面的代码。动图演示：</p>
+<p><img src="/asset/dbe41458101438.gif" alt="img"></p>
+<p>github <a href="https://github.com/google/android-classyshark" target="_blank" rel="noopener">传送门</a>   官网(估计要翻墙)<a href="http://www.classyshark.com/" target="_blank" rel="noopener">传送门</a></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>ClassyShark</tag>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>正则表达式常见集合</title>
+    <url>/2016/03/15/14/</url>
+    <content><![CDATA[<ul>
+<li><p>匹配中文字符的正则表达式： **[u4e00-u9fa5] **</p>
+<blockquote>
+<p>评注：匹配中文还真是个头疼的事，有了这个表达式就好办了 </p>
+</blockquote>
+</li>
+<li><p>匹配双字节字符(包括汉字在内)：**[^x00-xff] **</p>
+<blockquote>
+<p>评注：可以用来计算字符串的长度（一个双字节字符长度计2，ASCII字符计1） </p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>匹配空白行的正则表达式：ns*r </p>
+<blockquote>
+<p>评注：可以用来删除空白行 </p>
+</blockquote>
+</li>
+<li><p>匹配HTML标记的正则表达式：&lt;(S<em>?)[^&gt;]</em>&gt;.<em>?|&lt;.</em>? /&gt; </p>
+<blockquote>
+<p>评注：网上流传的版本太糟糕，上面这个也仅仅能匹配部分，对于复杂的嵌套标记依旧无能为力 </p>
+</blockquote>
+</li>
+<li><p>匹配首尾空白字符的正则表达式：^s<em>|s</em>$ </p>
+<blockquote>
+<p>评注：可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式 </p>
+</blockquote>
+</li>
+<li><p>匹配Email地址的正则表达式：w+([-+.]w+)<em>@w+([-.]w+)</em>.w+([-.]w+)* </p>
+<blockquote>
+<p>评注：表单验证时很实用 </p>
+</blockquote>
+</li>
+<li><p>匹配网址URL的正则表达式：[a-zA-z]+://[^s]* </p>
+<blockquote>
+<p>评注：网上流传的版本功能很有限，上面这个基本可以满足需求 </p>
+</blockquote>
+</li>
+<li><p>匹配帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$ </p>
+<blockquote>
+<p>评注：表单验证时很实用 </p>
+</blockquote>
+</li>
+<li><p>匹配国内电话号码：d{3}-d{8}|d{4}-d{7} </p>
+<blockquote>
+<p>评注：匹配形式如 0511-4405222 或 021-87888822 </p>
+</blockquote>
+</li>
+<li><p>匹配腾讯QQ号：[1-9][0-9]{4,} </p>
+<blockquote>
+<p>评注：腾讯QQ号从10000开始 </p>
+</blockquote>
+</li>
+<li><p>匹配中国邮政编码：[1-9]d{5}(?!d) </p>
+<blockquote>
+<p>评注：中国邮政编码为6位数字 </p>
+</blockquote>
+</li>
+<li><p>匹配身份证：d{15}|d{18} </p>
+<blockquote>
+<p>评注：中国的身份证为15位或18位 </p>
+</blockquote>
+</li>
+<li><p>匹配ip地址：d+.d+.d+.d+ </p>
+<blockquote>
+<p>评注：提取ip地址时有用 </p>
+</blockquote>
+</li>
+<li><p>匹配特定数字： </p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">^[<span class="number">1</span><span class="number">-9</span>]d*$　 　 <span class="comment">//匹配正整数 </span></span><br><span class="line">^-[<span class="number">1</span><span class="number">-9</span>]d*$ 　 <span class="comment">//匹配负整数 </span></span><br><span class="line">^-?[<span class="number">1</span><span class="number">-9</span>]d*$　　 <span class="comment">//匹配整数 </span></span><br><span class="line">^[<span class="number">1</span><span class="number">-9</span>]d*|<span class="number">0</span>$　 <span class="comment">//匹配非负整数（正整数 + 0） </span></span><br><span class="line">^-[<span class="number">1</span><span class="number">-9</span>]d*|<span class="number">0</span>$　　 <span class="comment">//匹配非正整数（负整数 + 0） </span></span><br><span class="line">^[<span class="number">1</span><span class="number">-9</span>]d*.d*|<span class="number">0.</span>d*[<span class="number">1</span><span class="number">-9</span>]d*$　　 <span class="comment">//匹配正浮点数 </span></span><br><span class="line">^-([<span class="number">1</span><span class="number">-9</span>]d*.d*|<span class="number">0.</span>d*[<span class="number">1</span><span class="number">-9</span>]d*)$　 <span class="comment">//匹配负浮点数 </span></span><br><span class="line">^-?([<span class="number">1</span><span class="number">-9</span>]d*.d*|<span class="number">0.</span>d*[<span class="number">1</span><span class="number">-9</span>]d*|<span class="number">0</span>?<span class="number">.0</span>+|<span class="number">0</span>)$　 <span class="comment">//匹配浮点数 </span></span><br><span class="line">^[<span class="number">1</span><span class="number">-9</span>]d*.d*|<span class="number">0.</span>d*[<span class="number">1</span><span class="number">-9</span>]d*|<span class="number">0</span>?<span class="number">.0</span>+|<span class="number">0</span>$　　 <span class="comment">//匹配非负浮点数（正浮点数 + 0） </span></span><br><span class="line">^(-([<span class="number">1</span><span class="number">-9</span>]d*.d*|<span class="number">0.</span>d*[<span class="number">1</span><span class="number">-9</span>]d*))|<span class="number">0</span>?<span class="number">.0</span>+|<span class="number">0</span>$　　<span class="comment">//匹配非正浮点数（负浮点数 + 0） </span></span><br><span class="line">评注：处理大量数据时有用，具体应用时注意修正 </span><br><span class="line">- 匹配特定字符串： </span><br><span class="line">^[A-Za-z]+$　　<span class="comment">//匹配由26个英文字母组成的字符串 </span></span><br><span class="line">^[A-Z]+$　　<span class="comment">//匹配由26个英文字母的大写组成的字符串 </span></span><br><span class="line">^[a-z]+$　　<span class="comment">//匹配由26个英文字母的小写组成的字符串 </span></span><br><span class="line">^[A-Za-z0<span class="number">-9</span>]+$　　<span class="comment">//匹配由数字和26个英文字母组成的字符串 </span></span><br><span class="line">^w+$　　<span class="comment">//匹配由数字、26个英文字母或者下划线组成的字符串</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在使用RegularExpressionValidator验证控件时的验证功能及其验证表达式介绍如下: </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">只能输入数字：“^[<span class="number">0</span><span class="number">-9</span>]*$” </span><br><span class="line">只能输入n位的数字：“^d&#123;n&#125;$” </span><br><span class="line">只能输入至少n位数字：“^d&#123;n,&#125;$” </span><br><span class="line">只能输入m-n位的数字：“^d&#123;m,n&#125;$” </span><br><span class="line">只能输入零和非零开头的数字：“^(<span class="number">0</span>|[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]*)$” </span><br><span class="line">只能输入有两位小数的正实数：“^[<span class="number">0</span><span class="number">-9</span>]+(.[<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">2</span>&#125;)?$” </span><br><span class="line">只能输入有<span class="number">1</span><span class="number">-3</span>位小数的正实数：“^[<span class="number">0</span><span class="number">-9</span>]+(.[<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">1</span>,<span class="number">3</span>&#125;)?$” </span><br><span class="line">只能输入非零的正整数：“^+?[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]*$” </span><br><span class="line">只能输入非零的负整数：“^-[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]*$” </span><br><span class="line">只能输入长度为<span class="number">3</span>的字符：“^.&#123;<span class="number">3</span>&#125;$” </span><br><span class="line">只能输入由<span class="number">26</span>个英文字母组成的字符串：“^[A-Za-z]+$” </span><br><span class="line">只能输入由<span class="number">26</span>个大写英文字母组成的字符串：“^[A-Z]+$” </span><br><span class="line">只能输入由<span class="number">26</span>个小写英文字母组成的字符串：“^[a-z]+$” </span><br><span class="line">只能输入由数字和<span class="number">26</span>个英文字母组成的字符串：“^[A-Za-z0<span class="number">-9</span>]+$” </span><br><span class="line">只能输入由数字、<span class="number">26</span>个英文字母或者下划线组成的字符串：“^w+$” </span><br><span class="line">验证用户密码:“^[a-zA-Z]w&#123;<span class="number">5</span>,<span class="number">17</span>&#125;$”正确格式为：以字母开头，长度在<span class="number">6</span><span class="number">-18</span>之间， </span><br><span class="line">只能包含字符、数字和下划线。 </span><br><span class="line">验证是否含有^%&amp;<span class="string">''</span>,;=?$<span class="string">"等字符：“[^%&amp;'',;=?$x22]+” </span></span><br><span class="line"><span class="string">只能输入汉字：“^[u4e00-u9fa5],&#123;0,&#125;$” </span></span><br><span class="line"><span class="string">验证Email地址：“^w+[-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*$” </span></span><br><span class="line"><span class="string">验证InternetURL：“^http://([w-]+.)+[w-]+(/[w-./?%&amp;=]*)?$” </span></span><br><span class="line"><span class="string">验证电话号码：“^((d&#123;3,4&#125;)|d&#123;3,4&#125;-)?d&#123;7,8&#125;$” </span></span><br><span class="line"><span class="string">正确格式为：“XXXX-XXXXXXX”，“XXXX-XXXXXXXX”，“XXX-XXXXXXX”， </span></span><br><span class="line"><span class="string">“XXX-XXXXXXXX”，“XXXXXXX”，“XXXXXXXX”。 </span></span><br><span class="line"><span class="string">验证身份证号（15位或18位数字）：“^d&#123;15&#125;|d&#123;&#125;18$” </span></span><br><span class="line"><span class="string">验证一年的12个月：“^(0?[1-9]|1[0-2])$”正确格式为：“01”-“09”和“1”“12” </span></span><br><span class="line"><span class="string">验证一个月的31天：“^((0?[1-9])|((1|2)[0-9])|30|31)$” </span></span><br><span class="line"><span class="string">正确格式为：“01”“09”和“1”“31”。 </span></span><br><span class="line"><span class="string">匹配中文字符的正则表达式： [u4e00-u9fa5] </span></span><br><span class="line"><span class="string">匹配双字节字符(包括汉字在内)：[^x00-xff] </span></span><br><span class="line"><span class="string">匹配空行的正则表达式：n[s| ]*r </span></span><br><span class="line"><span class="string">匹配HTML标记的正则表达式：/&lt;(.*)&gt;.*|&lt;(.*) /&gt;/ </span></span><br><span class="line"><span class="string">匹配首尾空格的正则表达式：(^s*)|(s*$) </span></span><br><span class="line"><span class="string">匹配Email地址的正则表达式：w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)* </span></span><br><span class="line"><span class="string">匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?</span></span><br></pre></td></tr></table></figure>
+
+<p>#例子</p>
+<ol>
+<li>计算字符串的长度（一个双字节字符长度计2，ASCII字符计1） </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.len=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.replace([^x00-xff]/g,<span class="string">"aa"</span>).length;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>应用：javascript中没有像vbscript那样的trim函数，我们就可以利用这个表达式来实现 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.trim = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/(^s*)|(s*$)/g</span>, <span class="string">""</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>应用：利用正则表达式分解和转换IP地址 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">IP2V</span>(<span class="params">ip</span>)</span>&#123;  <span class="comment">//IP地址转换成对应数值 </span></span><br><span class="line">	re=<span class="regexp">/(d+).(d+).(d+).(d+)/g</span> <span class="comment">//匹配IP地址的正则表达式 </span></span><br><span class="line">	<span class="keyword">if</span>(re.test(ip)) &#123; </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">RegExp</span>.$<span class="number">1</span>*<span class="built_in">Math</span>.pow(<span class="number">255</span>,<span class="number">3</span>))+<span class="built_in">RegExp</span>.$<span class="number">2</span>*<span class="built_in">Math</span>.pow(<span class="number">255</span>,<span class="number">2</span>))+<span class="built_in">RegExp</span>.$<span class="number">3</span>*<span class="number">255</span>+<span class="built_in">RegExp</span>.$<span class="number">4</span>*<span class="number">1</span> </span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; </span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Not a valid IP address!"</span>) </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>从URL地址中提取文件名的javascript程序 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">s=<span class="string">"http://www.9499.net/page1.htm"</span>; </span><br><span class="line">s=s.replace(<span class="regexp">/(.*/</span>)&#123;<span class="number">0</span>,&#125;([^.]+).*<span class="regexp">/ig,"$2") ;/</span><span class="regexp">/Page1.htm</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="利用正则表达式限制网页表单里的文本框输入内容"><a href="#利用正则表达式限制网页表单里的文本框输入内容" class="headerlink" title="利用正则表达式限制网页表单里的文本框输入内容"></a>利用正则表达式限制网页表单里的文本框输入内容</h2><ul>
+<li>用正则表达式限制只能输入中文：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">onkeyup=<span class="string">"value=value.replace(/[^u4E00-u9FA5]/g,'') "</span></span><br><span class="line">onbeforepaste=<span class="string">"clipboardData.setData(''text'',clipboardData.getData(''text'').replace(/[^u4E00-u9FA5]/g,''))"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用正则表达式限制只能输入全角字符： </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">onkeyup=<span class="string">"value=value.replace(/[^uFF00-uFFFF]/g,'') "</span></span><br><span class="line">onbeforepaste=<span class="string">"clipboardData.setData(''text'',clipboardData.getData(''text'').replace(/[^uFF00-uFFFF]/g,''))"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用正则表达式限制只能输入数字：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">onkeyup=<span class="string">"value=value.replace(/[^d]/g,'') "</span></span><br><span class="line">onbeforepaste= <span class="string">"clipboardData.setData(''text'',clipboardData.getData(''text'').replace(/[^d]/g,''))"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用正则表达式限制只能输入数字和英文：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">onkeyup=<span class="string">"value=value.replace(/[W]/g,'') "</span></span><br><span class="line">onbeforepaste=<span class="string">"clipboardData.setData(''text'',clipboardData.getData(''text'').replace(/[^d]/g,''</span></span><br></pre></td></tr></table></figure>
+
+<p>首先在正则表达式中使用 Unicode，必须使用\u开头，接着是字符编码的四位16进制表现形式</p>
+<ul>
+<li><p>简单匹配中文方法: <strong>/[^\u0000-\u00FF]/</strong> (匹配非单字节字符 )</p>
+<blockquote>
+<p>说明： //u0000-u00ff.包含unicode单字节编码（ 0-255编码）包含基本控制字符和拉丁文字母。 采用该否定表达式，粗略判断是否含有中文。</p>
+</blockquote>
+</li>
+<li><p>具体的匹配中文及字符方法：<strong>/[\u4E00-\u9FA5\uF900-\uFA2D]/</strong></p>
+<blockquote>
+<p>说明： u4e00-u9fbf :  unicode CJK(中日韩)统一表意字符。u9fa5后至u9fbf为空<br>uF900-uFAFF :  为unicode  CJK 兼容象形文字  。uFA2D后至uFAFF为空</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>正则</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>正则表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GIT - 密码保存</title>
+    <url>/2016/02/11/13/</url>
+    <content><![CDATA[<p>https方式每次都要输入密码，按照如下设置即可输入一次就不用再手输入密码的困扰而且又享受https带来的极速</p>
+<p>设置记住密码（默认15分钟）：</p>
+<pre><code>git config --global credential.helper cache</code></pre><a id="more"></a>
+
+<p>如果想自己设置时间，可以这样做：</p>
+<pre><code>git config credential.helper &apos;cache --timeout=3600&apos;</code></pre><p>这样就设置一个小时之后失效</p>
+<p>长期存储密码：</p>
+<pre><code>git config --global credential.helper store</code></pre><p>补充：使用客户端也可以存储密码的。</p>
+<p>如果你正在使用ssh而且想体验https带来的高速，那么你可以这样做： 切换到项目目录下，<br>移除远程ssh方式的仓库地址</p>
+<pre><code>git remote rm origin</code></pre><p>增加https远程仓库地址</p>
+<pre><code>git remote add origin https://git.oschina.net/username/project.git</code></pre>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>password</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>修改Xcode新建cpp文件创建.h后缀</title>
+    <url>/2016/02/11/12/</url>
+    <content><![CDATA[<p>先大概说下啥是hpp</p>
+<blockquote>
+<p>hpp，顾名思义等于.h加上.cpp，是Header   Plus   Plus 的简写。与 .h类似，hpp是C++程序头文件，而 .h里面可以有using   namespace   std，而 .hpp里则无。其实质就是将 .cpp的实现代码混入 .h头文件当中，定义与实现都包含在同一文件，则该类的调用者只需要include该hpp文件即可，无需再将cpp加入到project中进行编译。而实现代码将直接编译到调用者的obj文件中，不再生成单独的obj，采用hpp将大幅度减少调用project中的cpp文件数与编译次数，也不用再发布烦人的lib与dll，因此非常适合用来编写公用的开源库。</p>
+</blockquote>
+<a id="more"></a>
+
+<blockquote>
+<p>hpp的优点不少，但是编写中有以下几点要注意：<br/><br>1、不可包含全局对象和全局函数。<br/><br>2、类之间不可循环调用。<br/><br>3、不可使用静态成员。</p>
+</blockquote>
+<ol>
+<li>找到C++模板目录</li>
+</ol>
+<p>–</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">open /Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source/C++ File.xctemplate/WithHeader</span><br></pre></td></tr></table></figure>
+<p>Xcode beta版本等切换到相应的app 下</p>
+<ol start="2">
+<li>将.hpp 文件名改为 .h</li>
+</ol>
+<p>–<br>3. 将cpp文件、h文件中所有的hpp改为h<br>–<br>___FILEBASENAME___.h</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ___FILENAME___</span></span><br><span class="line"><span class="comment">//  ___PROJECTNAME___</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></span><br><span class="line"><span class="comment">//___COPYRIGHT___</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ___FILEBASENAMEASIDENTIFIER____h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ___FILEBASENAMEASIDENTIFIER____h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* ___FILEBASENAMEASIDENTIFIER____h */</span></span></span><br></pre></td></tr></table></figure>
+
+<p>___FILEBASENAME___.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ___FILENAME___</span></span><br><span class="line"><span class="comment">//  ___PROJECTNAME___</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></span><br><span class="line"><span class="comment">//___COPYRIGHT___</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"___FILEBASENAME___.h"</span></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>xcode</category>
+      </categories>
+      <tags>
+        <tag>xcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cocos2dx 3.0 action 回调</title>
+    <url>/2016/01/17/11/</url>
+    <content><![CDATA[<!--2016-01-17-cocos2dx 3.0 action 回调-->
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> callBack =  CallFunc::create(CC_CALLBACK_0(HelloWorld::actionCallBack,<span class="keyword">this</span>));  </span><br><span class="line"><span class="keyword">this</span>-&gt;runAction(callBack);  </span><br><span class="line"><span class="keyword">void</span> HelloWorld::actionCallBack()  &#123;  </span><br><span class="line">    <span class="built_in">log</span>(<span class="string">"Do something when action did finished.."</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>cocos2dx</category>
+      </categories>
+      <tags>
+        <tag>Cocos2dx</tag>
+        <tag>Action</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GIT - Tag的使用</title>
+    <url>/2016/01/16/10/</url>
+    <content><![CDATA[<h2 id="列出标签"><a href="#列出标签" class="headerlink" title="列出标签"></a>列出标签</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag # 在控制台打印出当前仓库的所有标签</span><br><span class="line">git tag -l ‘v0.1.*’ # 搜索符合模式的</span><br></pre></td></tr></table></figure>
+
+<h2 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h2><p>git标签分为两种类型：轻量标签和附注标签。轻量标签是指向提交对象的引用，附注标签则是仓库中的一个独立对象。建议使用附注标签。</p>
+<a id="more"></a>
+
+<h2 id="创建轻量标签"><a href="#创建轻量标签" class="headerlink" title="创建轻量标签"></a>创建轻量标签</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag v0.1.2-light</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建附注标签"><a href="#创建附注标签" class="headerlink" title="创建附注标签"></a>创建附注标签</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag -a v0.1.2 -m “0.1.2版本”</span><br></pre></td></tr></table></figure>
+
+<p>创建轻量标签不需要传递参数，直接指定标签名称即可。<br>创建附注标签时，参数a即annotated的缩写，指定标签类型，后附标签名。参数m指定标签说明，说明信息会保存在标签对象中。</p>
+<h2 id="切换到标签"><a href="#切换到标签" class="headerlink" title="切换到标签"></a>切换到标签</h2><p>与切换分支命令相同，用git checkout [tagname]</p>
+<h2 id="查看标签信息"><a href="#查看标签信息" class="headerlink" title="查看标签信息"></a>查看标签信息</h2><p>用git show命令可以查看标签的版本信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git show v0.1.2</span><br></pre></td></tr></table></figure>
+<h2 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h2><p>误打或需要修改标签时，需要先将标签删除，再打新标签。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag -d v0.1.2 # 删除标签</span><br></pre></td></tr></table></figure>
+
+<p>参数d即delete的缩写，意为删除其后指定的标签。</p>
+<h2 id="给指定的commit打标签"><a href="#给指定的commit打标签" class="headerlink" title="给指定的commit打标签"></a>给指定的commit打标签</h2><p>打标签不必要在head之上，也可在之前的版本上打，这需要你知道某个提交对象的校验和（通过git log获取）。</p>
+<h2 id="补打标签"><a href="#补打标签" class="headerlink" title="补打标签"></a>补打标签</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag -a v0.1.1 9fbc3d0</span><br></pre></td></tr></table></figure>
+
+<h2 id="标签发布"><a href="#标签发布" class="headerlink" title="标签发布"></a>标签发布</h2><p>通常的git push不会将标签对象提交到git服务器，我们需要进行显式的操作：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push origin v0.1.2 <span class="comment"># 将v0.1.2标签提交到git服务器</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin –tags <span class="comment"># 将本地所有标签一次性提交到git服务器</span></span></span><br></pre></td></tr></table></figure>
+
+<p>注意：如果想看之前某个标签状态下的文件，可以这样操作</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. git tag   #查看当前分支下的标签</span><br><span class="line">2. git checkout v0.21   #此时会指向打v0.21标签时的代码状态，（但现在处于一个空的分支上）</span><br></pre></td></tr></table></figure>
+<p>为了能把标签同步到远程服务器，我们可以这样做：<br /><br>默认情况下，git push并不会把tag标签传送到远端服务器上，只有通过显式命令才能分享标签到远端仓库。</p>
+<ol>
+<li><p>push单个tag，命令格式为：git push origin [tagname]<br>例如：</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin v1.0 #将本地v1.0的tag推送到远端服务器</span><br></pre></td></tr></table></figure></li>
+<li><p>push所有tag，命令格式为：git push [origin] –tags<br>例如：<code>git push --tags</code>或<code>git push origin --tags</code></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>tag</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android - 添加appcompat-v7时，提示缺少资源文件</title>
+    <url>/2015/10/18/9/</url>
+    <content><![CDATA[<p>添加appcompat-v7，报如下异常：</p>
+<pre><code>app\build\intermediates/e : xploded-aar\com.android.support\appcompat-v7\23.0.0\res\values-v23\values-v23.xm
+Error:(2) Error retrieving parent for item: No resource found that matches the given name &apos;android:TextAppearance.Material.Widget.Button.Inverse&apos;.
+Error:(2) Error retrieving parent for item: No resource found that matches the given name &apos;android:Widget.Material.Button.Colored&apos;.</code></pre><p>无论如何clean ,rebuild 都无法使用。</p>
+<p>解决办法:</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>appcompat-v7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android - 强行刷新library</title>
+    <url>/2015/10/11/8/</url>
+    <content><![CDATA[<p> Android Studio 中如何强行刷新 library 引用(针对于 SNAPSHOT)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gradle --refresh-dependencies</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.gradle.org/current/userguide/dependency_management.html" target="_blank" rel="noopener">官方说明</a></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Library</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android - TextView xml配置onClick无效 </title>
+    <url>/2015/10/10/7/</url>
+    <content><![CDATA[<p>问题，给TextView添加Onclick事件还需要配置android:clickable=”true”，否则点击无效。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:id</span>=<span class="string">"@+id/btn_set_mode_voice"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_width</span>=<span class="string">"32dp"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_height</span>=<span class="string">"32dp"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_marginLeft</span>=<span class="string">"6dp"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:background</span>=<span class="string">"@drawable/icon_topic_detail_voice"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:clickable</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:onClick</span>=<span class="string">"setModeVoice"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:visibility</span>=<span class="string">"visible"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>TextView</tag>
+        <tag>onClick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用include findViewById 返回null</title>
+    <url>/2015/10/09/6/</url>
+    <content><![CDATA[<p>layout 文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/fragment_chat_root"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@color/background"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/head_include"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">layout</span>=<span class="string">"@layout/layout_activity_head"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>layout_activity_head 布局如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/head_ly"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"44dip"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"#ff5cc1cb"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>findViewById(R.id.head_ly)</code> 返回值为null</p>
+<p>原因：include 设置了id，会覆盖掉layout_activity_head布局文件中根layout 的 id</p>
+<p>解决办法： <code>findViewById(R.id.layout_activity_head)</code>  或者 <code>去掉 include 的id</code></p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>include</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Centos - Yum安装PHP5.5,5.6</title>
+    <url>/2015/10/07/5/</url>
+    <content><![CDATA[<p>默认的版本太低了，手动安装有一些麻烦，想采用Yum安装的可以使用下面的方案：</p>
+<ol>
+<li>检查当前安装的PHP包</li>
+</ol>
+<p>–</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum list installed | grep php</span><br></pre></td></tr></table></figure>
+<p>如果有安装的PHP包，先删除他们</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum remove php.x86_64 php-cli.x86_64 php-common.x86_64 php-gd.x86_64 php-ldap.x86_64 php-mbstring.x86_64 php-mcrypt.x86_64 php-mysql.x86_64 php-pdo.x86_64</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>更新源</li>
+</ol>
+<p>–<br>Centos 5.X</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -Uvh http://mirror.webtatic.com/yum/el5/latest.rpm</span><br></pre></td></tr></table></figure>
+<p>CentOs 6.x</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm</span><br></pre></td></tr></table></figure>
+<p>CentOs 7.X</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm</span><br><span class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</span><br></pre></td></tr></table></figure>
+<p>如果想删除上面安装的包，重新安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -qa | grep webstatic</span><br><span class="line">rpm -e  上面搜索到的包即可</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>运行yum install</li>
+</ol>
+<p>–</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install php55w.x86_64 php55w-cli.x86_64 php55w-common.x86_64 php55w-gd.x86_64 php55w-ldap.x86_64 php55w-mbstring.x86_64 php55w-mcrypt.x86_64 php55w-mysql.x86_64 php55w-pdo.x86_64</span><br></pre></td></tr></table></figure>
+<p>注：如果想升级到<code>5.6</code>把上面的<code>55w</code>换成<code>56w</code>就可以了。</p>
+<ol start="4">
+<li>安装PHP FPM</li>
+</ol>
+<p>–</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install php55w-fpm</span><br><span class="line">chkconfig php-fpm on #设置php-fpm开机启动</span><br><span class="line">/etc/init.d/php-fpm start #启动php-fpm</span><br></pre></td></tr></table></figure>
+<p>注：如果想升级到<code>5.6</code>把上面的<code>55w</code>换成<code>56w</code>就可以了。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>Centos</tag>
+        <tag>Linux</tag>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WordPress 升级常见错误</title>
+    <url>/2015/06/30/4/</url>
+    <content><![CDATA[<!--2015-06-30-WordPress 升级常见错误-->
+
+<p>1.错误：连接服务器时出错，请检查</p>
+<pre><code>检查ftp 帐号密码是否正确，检查服务器防火墙是否ftp端口被禁用 </code></pre><p>2.错误：无法定位WordPress安装（内容，升级插件时出现）文件夹。     </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在原来的wp-config.php文件的结尾加上一段代码：</span><br><span class="line">    /* Fix WordPress autoupgrades on Byethost.com */</span><br><span class="line">    putenv(&apos;TMPDIR=&apos; . ini_get(&apos;upload_tmp_dir&apos;));</span><br><span class="line">    if(is_admin()) &#123;</span><br><span class="line">        add_filter(&apos;filesystem_method&apos;,create_function(&apos;$a&apos;, &apos;return &quot;direct&quot;;&apos; ));</span><br><span class="line">        define( &apos;FS_CHMOD_DIR&apos;, 0751 );</span><br><span class="line">    &#125;</span><br><span class="line">保存，重新执行自动安装。</span><br></pre></td></tr></table></figure>
+
+<p>3.错误：无法创建目录 Could not create directory. </p>
+<pre><code>wordpress 无权限创建路径，给wordpress 所在路径授权</code></pre>]]></content>
+      <categories>
+        <category>blog</category>
+        <category>WordPress</category>
+      </categories>
+      <tags>
+        <tag>WordPress</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模仿AirAndroid---方便简单的Android手机PC管家</title>
+    <url>/2013/10/06/3/</url>
+    <content><![CDATA[<!--2013-10-06-模仿AirAndroid---方便简单的Android手机PC管家-->
+<p><strong>项目内容：</strong>一款不需要安装驱动，不需要PC安装软件的Android手机管理软件</p>
+<a id="more"></a>
+<p>谈下我这个项目的思路：</p>
+<p><strong>背景：</strong>看到同学的一款软件AirAndroid。一款通过网页去管理Android手机的软件（需要跟电脑统一WIFI下），免去了PC机装手机驱动，管理软件等的困扰。于是想到，国内这种软件，少之又少，AirAndroid还有流量限制。于是想自己开发一个。</p>
+<p><strong>思路：</strong>把手机作为服务器，浏览器作为客户端。浏览器去请求出网页来。由于普通http协议，只支持一次通讯，于是想到了WebSocket。其中WebSocket服务器也在手机中。浏览器将相关动作传给服务器（手机）。服务器执行后，将结果反馈给浏览器。</p>
+<p><strong>开发进度：</strong>已经把服务器框架搭建好，实现了查看通讯录的功能。后面功能将继续实现。奋斗<br>websocket服务器-java实现<br>握手协议之类什么的，看的稀里糊涂。想自己写，实在没看懂。网上找的一个java写的服务器大哭</p>
+<p>感谢下大神：<a href="http://www.hoverlees.com/blog/?p=1624" target="_blank" rel="noopener">hoverlees</a></p>
+<p><strong>下面协议目的：</strong>毫无目的可言。就是老师让我讲下我的项目的一些协议，我就从网络上摘抄了些下来。</p>
+<p>下面是一些协议，想了解的同学了解下，不想了解就忽略吧。内容挺枯燥的，但我整理完后，发现还是有收获的。</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><ol>
+<li>Internet体系结构<br>   一个TCP/IP互联网提供了三组服务。最底层提供无连接的传送服务为其他层的服务提供了基础。第二层一个可靠的传送服务为应用层提供了一个高层平台。最高层是应用层服务。</li>
+<li>IP协议： 这种不可靠的、无连接的传送机制称为internet协议。</li>
+<li>IP协议三个定义：<ul>
+<li>IP定义了在TCP/IP互联网上数据传送的基本单元和数据格式。</li>
+<li>IP软件完成路由选择功能，选择数据传送的路径。</li>
+<li>IP包含了一组不可靠分组传送的规则，指明了分组处理、差错信息发生以及分组的规则。</li>
+</ul>
+</li>
+</ol>
+<h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><ul>
+<li>UDP—用户数据报协议，是一个简单的面向数据报的运输层协议。</li>
+<li>UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。</li>
+<li>由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快</li>
+</ul>
+<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP—传输控制协议,提供的是面向连接、可靠的字节流服务。<br>当客户和服务器彼此交换数据前，必须先在双方之间建立一个TCP连接，之后才能传输数据。</p>
+<p>TCP提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。</p>
+<p>TCP连接过程<br>连接过程分为三个步骤：服务器监听，客户端请求，连接确认。</p>
+<p>服务器监听：服务器端套接字处于等待连接的状态，实时监控网络状态，等待客户端的连接请求 。（绑定端口，accpt()）</p>
+<p>客户端请求：指客户端的套接字提出连接请求，要连接的目标是服务器端的套接字。为此，客户端的套接字必须首先描述它要连接的服务器的套接字，指出服务器端套接字的地址和端口号，然后就向服务器端套接字提出<br>连接请求。(绑定服务器地址，端口)</p>
+<p>连接确认：当服务器端套接字监听到或者说接收到客户端套接字的连接请求时，就响应客户端套接字的请求，建立一个新的线程，把服务器端套接字的描述发给客户端，一旦客户端确认了此描述，双方就正式建立连接</p>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>HTTP协议永远都是客户端发起请求，服务器回送响应。<br>这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。<br>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有对应关系。</p>
+<p>HTTP连接过程<br>HTTP连接四个步骤：</p>
+<ol>
+<li>连接：Web浏览器与Web服务器建立连接，打开一个称为socket（套接字）的虚拟文件，此文件的建立标志着连接建立成功。 </li>
+<li>请求：Web浏览器通过socket向Web服务器提交</li>
+<li>应答：Web浏览器提交请求后，通过HTTP协议传送给Web服务器。Web服务器接到后，进行事务处理，处理结果又通过HTTP传回给Web浏览器，从而在Web浏览器上显示出所请求的页面。</li>
+<li>关闭连接：当应答结束后，Web浏览器与Web服务器必须断开，以保证其它Web浏览器能够与Web服务器建立连接。</li>
+</ol>
+<p>HTTP特点</p>
+<p>HTTP连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。从建立连接到关闭连接的过程称为“一次连接”。</p>
+<p>1）在HTTP 1.0中，客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，就自动释放连接</p>
+<p>2）在HTTP 1.1中则可以在一次连接中处理多个请求，并且多个请求可以重叠进行，不需要等待一个请求结束后再发送下一个请求。</p>
+<h2 id="HTTP通讯过程"><a href="#HTTP通讯过程" class="headerlink" title="HTTP通讯过程"></a>HTTP通讯过程</h2><p>即时通讯</p>
+<p>现很多网站为了实现即时通讯(real-time)，所用的技术都是轮询(polling)。轮询是在特定的的时间间隔(time interval)（如每1秒），由浏览器对服务器发出HTTP request，然后由服务器返回最新的数据给客服端的浏览器。这种传统的HTTP request d的模式带来很明显的缺点 – 浏览器需要不断的向服务器发出请求(request)，然而HTTP request 的header是非常长的，里面包含的数据可能只是一个很小的值，这样会占用很多的带宽。</p>
+<p>而最比较新的技术去做轮询的效果是Comet – 用了AJAX。但这种技术虽然可达到全双工通信，但依然需要发出请求(reuqest)。</p>
+<h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket "></a>WebSocket </h2><p>WebSocket  是HTML5一种新的协议(protocol)。它是实现了浏览器与服务器全双工通信。</p>
+<p>在 WebSocket API，浏览器和服务器只需要要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。在此WebSocket 协议中，为我们实现即时服务带来了两大好处：</p>
+<ol>
+<li>Header<br> 互相沟通的Header是很小的-大概只有 2 Bytes</li>
+<li>Server Push<br> 服务器可以主动传送数据给客户端</li>
+</ol>
+<p>WebSocket支持的浏览器</p>
+<pre><code>Chrome Supported in version 4+
+Firefox Supported in version 4+
+Internet Explorer Supported in version 10+
+Opera Supported in version 10+
+Safari Supported in version 5+</code></pre><p>WebSocket服务器</p>
+<p>在服务器端,也出现了一些实现websocket协议的项目:</p>
+<pre><code>jetty 7.0.1 包含了一个初步的实现
+resin 包含有websocket 实现
+pywebsocket, apache http server 扩展
+apache tomcat 7.0.27 版本
+Nginx 1.3.13 版本</code></pre><p>websocket api在浏览器端的广泛实现似乎只是一个时间问题了, 值得注意的是服务器端没有标准的api, 各个实现都有自己的一套api, 并且jcp也没有类似的提案, 所以使用websocket开发服务器端有一定的风险.可能会被锁定在某个平台上或者将来被迫升级.</p>
+<hr>
+<p>以上摘抄自：百度百科，博客文章等之中</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>AirAndroid</tag>
+        <tag>PC管家</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于js的一些小结</title>
+    <url>/2013/10/05/2/</url>
+    <content><![CDATA[<p>这两天。做个小程序，需要用到网页，捡起了不愿接触的javascript。下面是对这几天遇到的问题的一些小结。项目完成前，将持续更新：</p>
+<p>1、如何在js中动态的给div添加内容</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dialog = <span class="built_in">document</span>.getElementById(<span class="string">"div"</span>); <span class="comment">//通过ID获取div</span></span><br><span class="line">dialog.innerHTML=<span class="string">"&lt;h1&gt;动态添加&lt;/h1&gt;;        //innerHTML 获取或者设置包含的内容</span></span><br></pre></td></tr></table></figure>
+
+<p>2、HTML中，引号多级嵌套怎么处理?</p>
+<p>最外面是双引号，然后是单引号，再有的话，则为  &quot; 一般这三层即可；</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"icon_folder.png"</span> <span class="attr">onClick</span>=<span class="string">"sendData('&#123;&amp;quot;action&amp;quot;:folder&#125;')"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3、js解析json，json格式<br>    在js中，对json格式要求较高，不像在java中，json有个大概就能出来。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>)</span><br><span class="line"><span class="keyword">var</span> json =&#123;<span class="string">'ID'</span>:<span class="string">'12'</span>,<span class="string">'name'</span>:<span class="string">'张三'</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">eval</span>(json);</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>)</span><br><span class="line"><span class="keyword">var</span> json = <span class="string">"&#123;'ID':'12','name':'张三' &#125;"</span>;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span>+json+<span class="string">")"</span>);</span><br></pre></td></tr></table></figure>
+<p>注意对比下1，2的差距。第一个本身即为json对象，第二个为string，需要转换成json对象才能解析</p>
+<p>4、解析json数组</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> json = [&#123;<span class="string">"_id"</span>:<span class="string">"529"</span>,<span class="string">"display_name"</span>:<span class="string">"张三"</span>,<span class="string">"data1"</span>:<span class="string">"+8613027201232"</span>&#125;,</span><br><span class="line">            &#123;<span class="string">"_id"</span>:<span class="string">"830"</span>,<span class="string">"display_name"</span>:<span class="string">"李四"</span>,<span class="string">"data1"</span>:<span class="string">"+8613027201234"</span>&#125;];</span><br><span class="line"><span class="keyword">var</span> objs = <span class="built_in">eval</span>(json);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;objs.length;i++)&#123;</span><br><span class="line">    html += <span class="string">"&lt;p&gt;用户名 :"</span>+objs[i].display_name+<span class="string">" 手机号:"</span>+objs[i].data1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开篇</title>
+    <url>/2013/10/01/1/</url>
+    <content><![CDATA[<!--2013-10-01-开篇-->
+
+<p>博客开篇，也不知道说什么，就瞎扯扯吧。 </p>
+<p>扯扯对计算机认识的历程。</p>
+<a id="more"></a>
+
+<p>小学，那时，第一次知道计算机的键盘分布，还是从邻居小孩的小霸王学习机上认识的。当然，那小霸王成了游戏机。那时候，好羡慕他，可以在一个叫做键盘的，字母顺序乱七八糟的东西上敲出字来羡慕。</p>
+<p>后来，也就小学6年级，去了乡小学读书。学校的条件好了，学生从三年级就开始学计算机，而我，6年级，还不知道怎么开机。</p>
+<p>“大家记住，大的是开机键，小的是重启键”</p>
+<p>“老师，大小键在哪里？”</p>
+<p>。。。</p>
+<p>那时候，我知道，电脑是一个很神奇的东西，可以玩游戏（扫雷），可以有计算器，可以画图。听说联网了就可以玩更好玩的游戏了、可惜的是我们学校没联网。</p>
+<p>到了初中， 开始有微机课了。印象最深的就是，我们微机老师整天给我们讲：电脑里面还有几个几个病毒，他杀了多少多少个。现在想想，就我们那破机房，要网没网的，哪有那么多病毒。反正每次上课时候，吹的就是杀毒的事情。那时候，开始知道，原来计算机也会生病，而且，老师还是个医生。。。</p>
+<p>高中生活，可以说是比较乱吧，电脑也不是那么陌生了。高中的电脑认识，又应该细分。</p>
+<p>高一的时候，第一个星期天，商量好跟同桌去网吧去。在网吧待了一个下午，两人都很奇葩，注册了一个下午的QQ号没注册成功。o(︶︿︶)o 唉，第一次不懂事嘛，也是网吧老板黑心，看出我们是第一次，要了最贵的钱，用了最破的电脑，最慢的网。当然，那时候网吧还是宽带。鄙视<br>后来，开始了我的网吧生活。每个星期天，不去网吧，不知道干什么。学校附近的网吧，大大小小，能逛的都逛过。去网吧玩的内容，也从聊天，看视频，慢慢的演变成玩游戏。上网的时间也逐渐从星期天，发展成为每天的中午，晚上爬爬墙通宵。</p>
+<p>额，我还不是无可救药的。。。高二上学期吧 ，江苏的高考，需要计算机有一定的成绩，每个学校会选择一个方向，如，vb，html，flash等。我学校选的是VB。当时一接触VB，一个好神奇的东西。我学会了用vb去算“鸡兔同笼”的问题，会去算“水仙花数”，会去打印各种图案。一个猴子吃桃的问题，老师快下课的时候布置的作业，我在他说下课时，完成了。叫过老师，看了代码。“嗯，很厉害。大家要跟XX学习，现在就把作业给做出来了。”一句夸奖，差点整疯我一个人。星期天去网吧，不再是游戏，不再是聊天。去网吧装VB，去写代码。（网吧的电脑装了还原卡，那时候VB装好了要重启、、、）。以失败而告终。。。高中时候的梦想就是，有台自己的电脑，向黑客一样去编写代码。去攻击别人电脑。。。</p>
+<p>高考志愿，糊里糊涂的添了一个普通二本的软件专业，当我知道学费是1W的时候，傻了眼。本着一颗赶紧回报父母的心进了大学，软件工程专业—-网络方向。知道自己的专业方向时，脑海又浮现高中的梦想。。。后来才发现，这一切只是个梦，醒了。</p>
+<p>大一上学期,C语言—-我有高中VB的基础，学习起来很是轻松。我能用同学们没见过的方法，写跟书上一样的效果来。那时候的我，会去饿着肚子，跑图书馆电子阅览室去敲代码一天。为一个小小的关机程序，能得意个一天。那时候的我，学软件很是快乐！</p>
+<p>大一下学期，数据结构，通宵去写用一堆二级指针处理数据的记事本，嘿嘿，现在想想，那时候的自己很是伟大啊，那时候的我，见识就开始比别人低了。。。我还在C的基础的时候，别人已经开始面线对象。我还是CMD的时候，别人已经开始界面化操作。唉，落后了。</p>
+<p>大二上，开始学java。这个可以写界面。写界面的过程，也不会像C＋＋那么繁琐，很是得自己心意吧。大二，为了软创（学校的软件创新设计大赛），想搞一个语音地图，开始搞起了Android。现在还清晰记得当时的想法：目标人群是失明人士，说声启动，开始启动地图服务功能，说出去哪里哪里，地图会报出路线。唉，那时候的自己，还是过于愚钝，一心想着是用声音启动（没办法实现，别人的SDK全是要按钮触发），一直没能实现。大赛前几天，把已经完成地图功能的整个项目给删除了。现在想来，甚是心疼。</p>
+<p>学Android到现在，却还是在学Android。不知道自己学了什么，会了什么。学的一瓶不满，半瓶晃荡。迷茫了，困惑了。感觉自己正如井底的那只青蛙，感觉Android就仅仅是那几个控件。。。</p>
+<!--现在的我不仅仅想跳出Android 这口井，更欲跳出java、软件这一口口井奋斗
+-->                                                    
+<p>=========  IT半吊子</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+</search>
